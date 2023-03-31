@@ -1,4 +1,4 @@
-"""tripper_api URL Configuration
+"""tripper URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("", include('social_network.urls')),
+    path("", include('frontend.urls')),
+    path("", include('social_network.urls'))
     # path("messages/", include('messaging.urls'))
 ]
