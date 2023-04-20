@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bounce-in {
+  animation-play-state: 'paused';
+  animation: bounce-in 0.5s ease;
+}
+.bounce-in-reverse {
+  animation-play-state: 'paused';
+  animation: bounce-in 0.5s ease;
+  animation-direction: reverse;
+}
+  @keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% { transform: scale(.9); }
+    100% { transform: scale(1); }
+  }
+
+.active span {
+  display: inline-block;
+  pointer-events: none;
+}
+
+.active span::after {
+  content: '';
+  height: 4px;
+  background: rgb(29, 155, 240);
+  border-radius: 5px;
+  display: block
+}
+.react-tooltip-arrow {
+  border: 1px solid #2F3336;
+  border-top: none;
+  border-left: none;
+}
+
+body {
+  background: black;
+  width: calc(100vw - 1%);
+  overflow-x: hidden;
+}

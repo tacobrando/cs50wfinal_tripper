@@ -18,6 +18,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("", include('frontend.urls')),
-    path("", include('social_network.urls'))
+    path("", include('social_network.urls')),
+    path("", include('accounts.urls'))
     # path("messages/", include('messaging.urls'))
 ]

@@ -4,13 +4,9 @@ from django.contrib.auth.hashers import make_password
 
 #User Serializer
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        write_only=True,
-        required=True
-    )
     class Meta:
         model=User
-        fields='__all__'
+        fields=('id', 'username', 'email')
 
 #Profile Serializer
 class ProfileSerializer(serializers.ModelSerializer):
@@ -27,7 +23,8 @@ class PostSerializer(serializers.ModelSerializer):
     likes=UserSerializer(many=True, read_only=True)
     class Meta:
         model=Post
-        field='__all__'
+        fields='__all__'
+        
 
 #Reply Serializer
 class ReplySerializer(serializers.ModelSerializer):
@@ -36,4 +33,4 @@ class ReplySerializer(serializers.ModelSerializer):
     post=PostSerializer(many=False, read_only=True)
     class Meta:
         model=Reply
-        field='__all__'
+        fields='__all__'

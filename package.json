@@ -26,9 +26,17 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.3",
+    "axios": "^1.3.5",
     "core-js": "^3.29.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.10.0",
+    "react-tooltip": "^5.11.1",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2"
   }
 }
