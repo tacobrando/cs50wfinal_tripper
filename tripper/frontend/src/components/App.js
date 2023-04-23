@@ -38,14 +38,10 @@ class App extends Component {
                         <div className="nav-menu bg-black 2xl:col-span-4 xl:col-span-3 md:col-span-2 top-0 left-0 md:w-full sticky h-screen ">
                             <Menu capitaliseFirst={capitaliseFirst} />
                         </div>
-                        <div 
-                            style={{height: "200vh"}} 
+                        <div  
                             className="
                                 content-container 
-                                border-r 
                                 bg-black
-                                border-l
-                                border-dark-grey
                                 col-span-11
                                 2xl:col-span-4
                                 xl:col-span-5
@@ -53,6 +49,9 @@ class App extends Component {
                                 md:col-span-7
                                 w-full 
                                 text-center
+                                border
+                                border-b-0
+                              border-dark-grey
                             "
                         >
                             <div className="header-container sticky top-0 z-20">
@@ -60,8 +59,7 @@ class App extends Component {
                             </div>
                             <div className="body-container">
                                 <Posts capitaliseFirst={capitaliseFirst} />
-                            </div>
-                        
+                            </div>  
                             </div>
                             <aside className="page-options w-full text-start h-screen sticky top-0 right-0 hidden lg:block lg:col-span-3 xl:col-span-4">
                                 <Options />

@@ -1,25 +1,25 @@
-import React, {  Fragment, useEffect, useState } from 'react'
+import React, {  Fragment, useEffect } from 'react'
 import { connect } from 'react-redux'
-import PropTypes, { array } from 'prop-types'
-import { getPosts } from '../../actions/posts'
+import PropTypes from 'prop-types'
+import { getPosts, addPost } from '../../actions/posts'
 
 import Form from './form/Form'
 import Post from './post/Post'
 
-function Posts({ getPosts, isAuthenticated, posts, tab, capitaliseFirst }) {
+function Posts({ getPosts, auth, posts, tab, capitaliseFirst, addPost }) {
   useEffect(() => {
     getPosts()
   }, [getPosts])
   return (
     <Fragment>
-      {isAuthenticated &&
-        <Form />
+      {auth.isAuthenticated &&
+        <Form formSubmit={addPost} auth={auth} />
       }
       {tab === "for_user" 
       ?
-        <div className="posts border-b border-dark-grey w-full h-auto text-white">
+        <div className="posts border-dark-grey w-full h-auto text-white">
           {posts.map(post => {
-            return <Post key={post.id} post={post} capitaliseFirst={capitaliseFirst} getPosts={getPosts} />
+            return <Post isAuthenticated={auth.isAuthenticated} key={post.id} post={post} capitaliseFirst={capitaliseFirst} getPosts={getPosts} />
           })}
         </div>
       :
@@ -34,7 +34,7 @@ function Posts({ getPosts, isAuthenticated, posts, tab, capitaliseFirst }) {
 const mapStateToProps = state => {
   return {
     posts: state.posts.posts,
-    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
     tab: state.options.tab
   }
 }
@@ -42,10 +42,11 @@ const mapStateToProps = state => {
 Posts.propTypes = {
   posts: PropTypes.array.isRequired,
   getPosts: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-  tab: PropTypes.string
+  auth: PropTypes.object.isRequired,
+  tab: PropTypes.string,
+  addPost: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, 
-  { getPosts }
+  { getPosts, addPost }
 )(Posts)

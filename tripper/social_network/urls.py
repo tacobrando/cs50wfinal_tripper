@@ -1,10 +1,10 @@
 from rest_framework import routers
-from .api import UserViewSet, PostViewSet, ReplyViewSet, ProfileViewSet
+from .api import UserViewSet, PostViewSet, ProfileViewSet
+from django.urls import path
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet, 'users')
-router.register('posts', PostViewSet, 'posts')
-router.register('replies', ReplyViewSet, 'replies')
+router.register(r'posts', PostViewSet, 'posts')
 router.register('profiles', ProfileViewSet, 'profiles')
 
 urlpatterns = router.urls

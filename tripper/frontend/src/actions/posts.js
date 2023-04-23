@@ -1,4 +1,4 @@
-import { GET_POSTS, DELETE_POST, ADD_POST } from "./types";
+import { GET_POSTS, DELETE_POST, ADD_POST, LIKE_POST, REPLY_POST } from "./types";
 import { createAlert, returnErrors } from './alerts'
 
 import axios from 'axios'
@@ -33,6 +33,28 @@ export const addPost = (post) => (dispatch, getState) => {
         dispatch(createAlert({ addPost: "Post Added" }))
         dispatch({
             type: ADD_POST,
+            payload: res.data
+        })
+    })
+    .catch((error) => dispatch(returnErrors(error.response.data, error.response.status)))
+}
+
+export const likePost = (id) => (dispatch, getState) => {
+    axios.post(`posts/${id}/like/`, {}, tokenConfig(getState))
+    .then(res => {
+        dispatch({
+            type: LIKE_POST,
+            payload: res.data
+        })
+    })
+    .catch((error) => dispatch(returnErrors(error.response.data, error.response.status)))
+}
+
+export const replyPost = (reply) => (dispatch, getState) => {
+    axios.post(`posts/${id}/reply`, reply, tokenConfig(getState))
+    .then(res => {
+        dispatch({
+            type: REPLY_POST,
             payload: res.data
         })
     })

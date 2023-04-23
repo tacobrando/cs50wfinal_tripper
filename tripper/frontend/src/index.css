@@ -44,6 +44,6 @@
 
 body {
   background: black;
-  width: calc(100vw - 1%);
+  width: calc(100vw - 2%);
   overflow-x: hidden;
 }

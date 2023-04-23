@@ -46,7 +46,7 @@ export const loadUser = () => (dispatch, getState)=> {
         })
 }
 
-export const login = (username, password) => (dispatch) => {
+export const login = (username, password) => async (dispatch) => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -55,21 +55,23 @@ export const login = (username, password) => (dispatch) => {
 
     // Request Body
     const body = JSON.stringify({ username, password })
-    axios.post('/auth/login', body, config)
-        .then(res => {
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: res.data
-            })
-        }).catch(error => {
-            const message = {
-                detail: error.response.data.non_field_errors[0]
-            }
-            dispatch(returnErrors(message, error.response.status))
-            dispatch({
-                type: LOGIN_FAIL
-            })
+    try {
+        const res = await axios.post('auth/login', body, config)
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
         })
+        return true
+    } catch (error) {
+        const message = {
+            detail: error.response.data.non_field_errors[0]
+        }
+        dispatch(returnErrors(message, error.response.status))
+        dispatch({
+            type: LOGIN_FAIL
+        })
+        return false
+    }
 }
 
 export const logout = () => (dispatch, getState) => {
@@ -83,7 +85,7 @@ export const logout = () => (dispatch, getState) => {
     })
 }
 
-export const register = (username, password, confirmation, email ) => (dispatch) => {
+export const register = (username, password, confirmation, email ) => async (dispatch) => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -100,13 +102,14 @@ export const register = (username, password, confirmation, email ) => (dispatch)
 
     // Request Body
     const body = JSON.stringify({ username, password, email })
-    axios.post('/auth/register', body, config)
-    .then(res => {
+    try {
+        const res = await axios.post('/auth/register', body, config)
         dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data
         })
-    }).catch(error => {
+        return true
+    } catch (error) {
         const message = {
             detail: error.response.data.username[0]
         }
@@ -114,7 +117,22 @@ export const register = (username, password, confirmation, email ) => (dispatch)
         dispatch({
             type: REGISTER_FAIL
         })
-    })
+        return false
+    }
+    // .then(res => {
+    //     dispatch({
+    //         type: REGISTER_SUCCESS,
+    //         payload: res.data
+    //     })
+    // }).catch(error => {
+    //     const message = {
+    //         detail: error.response.data.username[0]
+    //     }
+    //     dispatch(returnErrors(message, error.response.status))
+    //     dispatch({
+    //         type: REGISTER_FAIL
+    //     })
+    // })
 }
 
 export const tokenConfig = (getState) => {

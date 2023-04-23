@@ -21,6 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     user=UserSerializer(read_only=True)
     likes=UserSerializer(many=True, read_only=True)
+    replies = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model=Post
         fields='__all__'
@@ -31,6 +32,7 @@ class ReplySerializer(serializers.ModelSerializer):
     user=UserSerializer(read_only=True)
     likes=UserSerializer(many=True, read_only=True)
     post=PostSerializer(many=False, read_only=True)
+
     class Meta:
         model=Reply
         fields='__all__'

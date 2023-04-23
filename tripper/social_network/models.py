@@ -11,13 +11,17 @@ class Post(models.Model):
     image=models.URLField(blank=True)
     likes=models.ManyToManyField(User, related_name="post_likes")
     timestamp=models.DateTimeField(auto_now_add=True)
+    replies=models.ManyToManyField('Reply', related_name="post_replies")
+
+    def post_likes(self):
+        return self.likes.all()
 
 class Reply(models.Model):
     user=models.ForeignKey(User, related_name="replies", on_delete=models.CASCADE)
     content=models.TextField(blank=False)
     timestamp=models.DateTimeField(auto_now_add=True)
     likes=models.ManyToManyField(User, related_name="reply_likes")
-    post=models.ForeignKey(Post, on_delete=models.CASCADE)
+    post=models.ForeignKey(Post, on_delete=models.CASCADE, to_field='id')
 
 class Profile(models.Model):
     user=models.ForeignKey(User, related_name="profiles", on_delete=models.CASCADE)
